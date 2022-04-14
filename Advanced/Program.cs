@@ -20,6 +20,7 @@ namespace Advanced
             };
         }
     }
+
     class Program
     {
 
@@ -81,6 +82,18 @@ namespace Advanced
                 select b.Name;
 
             var cheaperBooks1 = books.Where(b => b.Price < 10).OrderBy(b => b.Name).Select(b => b.Name);
+
+            int i = 5;
+            dynamic d = i;
+            string l = d;
+            
+            //object obj = "Mosh";
+
+            //var methodInfo = obj.GetType().GetMethod("GetHashCode");
+            //methodInfo.Invoke(null, null);
+
+            //dynamic excelObject = "mosh";
+            //excelObject.Optimize();
         }
 
         static void RemoveRedEyeFilter(Photo photo)

@@ -37,7 +37,7 @@ namespace Advanced.Generics
         {
 
         }
-
+    
         public T this[int index]
         {
             get { throw new NotImplementedException(); }
