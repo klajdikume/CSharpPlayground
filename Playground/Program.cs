@@ -3,9 +3,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Xunit;
 
 namespace Playground
 {
+    public delegate string WriteLogDelegate(string logMessage);
+    public delegate void GradeAddedDelegate(object sender, EventArgs args);
+
+    public class TypeTests 
+    {
+        [Fact]
+        public void WriteLogDelegateCanPointToMethod()
+        {
+            WriteLogDelegate log = ReturnMessage;
+
+            log += ReturnMessage;
+
+            var result = log("Hello");
+            Assert.Equal("Hello", result);
+        }
+
+        string ReturnMessage(string message)
+        {
+            return message;
+        }
+    }
 
     public class Customer
     {
@@ -58,6 +80,9 @@ namespace Playground
             var cookie = new HttpCookie();
             cookie["name"] = "Mosh";
             Console.WriteLine(cookie["name"]);
+
+
+
         }
     }
 
