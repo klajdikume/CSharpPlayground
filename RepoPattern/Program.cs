@@ -114,9 +114,10 @@ namespace RepoPattern
 
             Console.WriteLine("modul me, {0}", findDecimalModul(125, 26));
             Console.WriteLine("modul me mod(), {0}", mod("27", 6));
-            Console.WriteLine("modul me clock(), {0}", findModDividentNegativeOrPositive(-5, 3));
-            Console.WriteLine("modul me clock(), {0}", findModDividentNegativeOrPositive(-5, 2));
-            Console.WriteLine("modul me clock(), {0}", findModDividentNegativeOrPositive(-17, 3));
+            Console.WriteLine("modul me clock(), {1} mod {2} = {0}", findModDividentNegativeOrPositive(-5, 3),-5, 3);
+            Console.WriteLine("modul me clock(), {1} mod {2} = {0}", findModDividentNegativeOrPositive(5, 3), 5, 3);
+            Console.WriteLine("modul me clock(), {1} mod {2} = {0}", findModDividentNegativeOrPositive(-17, 3), -17, 3);
+            Console.WriteLine("modul me clock(), {1} mod {2} = {0}", findModDividentNegativeOrPositive(17, 3), 17, 3);
 
             Console.WriteLine(isPalindrome("madam"));
             Console.WriteLine(isPalidromeIterative("takovavokat"));

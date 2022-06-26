@@ -23,6 +23,7 @@ namespace DesignPatterns
         public void Say(string message)
         {
             Room.Broadcast(Name, message);
+            var abc = typeof(Person).GetType().GetProperties();
         }
 
         public void PrivateMessage(string who, string message)
