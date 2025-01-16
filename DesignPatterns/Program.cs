@@ -90,4 +90,34 @@ namespace DesignPatterns
 
         }
     }
+
+    public interface IEmailService
+    {
+        void SendEmail(string toAddress, string subject, string body);
+    }
+
+    public class EmailService : IEmailService
+    {
+        public void SendEmail(string toAddress, string subject, string body)
+        {
+            // Code to send email
+        }
+    }
+
+    public class MyClass
+    {
+        private readonly IEmailService _emailService;
+
+        public MyClass(IEmailService emailService)
+        {
+            _emailService = emailService;
+        }
+
+        public void DoSomething()
+        {
+            // Use the email service to send an email
+            _emailService.SendEmail("to@example.com", "Subject", "Body");
+        }
+    }
+
 }

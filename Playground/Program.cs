@@ -57,6 +57,84 @@ namespace Playground
         
     }
 
+    public class Snake
+    {
+        private int width, height;
+        private Queue<(int, int)> food;
+        private LinkedList<(int, int)> snake;
+        private HashSet<(int, int)> snakeSet;
+        private Dictionary<string, (int, int)> directions;
+        private int score;
+
+        public Snake(int width, int height, int[][] food)
+        {
+            this.width = width;
+            this.height = height;
+            this.food = new Queue<(int, int)>();
+            foreach (var f in food)
+            {
+                this.food.Enqueue((f[0], f[1]));
+            }
+
+            this.snake = new LinkedList<(int, int)>();
+            this.snake.AddFirst((0, 0));
+            this.snakeSet = new HashSet<(int, int)>() { (0,0) };
+
+            this.directions = new Dictionary<string, (int, int)>
+            {
+                { "U", (-1, 0) },
+                { "D", (1, 0) },
+                { "L", (0, -1) },
+                { "R", (0, 1) },
+            };
+
+            this.score = 0;
+        }
+
+        public int Move(string direction)
+        {
+            if (!directions.ContainsKey(direction))
+            {
+                throw new ArgumentException($"Invalid direction: {direction}");
+            }
+
+            var (dx, dy) = directions[direction];
+            var (headX, headY) = snake.First.Value;
+            var newHead = (headX + dx, headY + dy);
+
+            if (IsOutOfBounds(newHead))
+            {
+                return -1;
+            }
+
+            if(snakeSet.Contains(newHead) && !newHead.Equals(snake.Last.Value))
+            {
+                return -1;
+            }
+
+            snake.AddFirst(newHead);
+            snakeSet.Add(newHead);
+
+            if (food.Count > 0 && newHead.Equals(food.Peek()))
+            {
+                food.Dequeue();
+                score++;
+            }
+            else
+            {
+                var tail = snake.Last.Value;
+                snake.RemoveLast();
+                snakeSet.Remove(tail);
+            }
+
+            return score;
+        }
+        private bool IsOutOfBounds((int x, int y) position)
+        {
+            return position.x < 0 || position.x >= height || position.y < 0 || position.y >= width;
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -66,6 +144,21 @@ namespace Playground
             // Params modifier
             // Ref modifier
             // Out modifier
+
+            int[][] food = new int[][]
+            {
+                new int[] { 1, 2},
+                new int[] { 0, 1},
+            };
+
+            var game = new Snake(3, 3, food);
+
+            Console.WriteLine(game.Move("R")); // 0
+            Console.WriteLine(game.Move("D")); // 0
+            Console.WriteLine(game.Move("R")); // 1 (Food eaten)
+            Console.WriteLine(game.Move("U")); // 1
+            Console.WriteLine(game.Move("L")); // 2 (Food eaten)
+            Console.WriteLine(game.Move("U")); // -1 (Game over: collision)
 
             var customer = new Customer(1);
             customer.Orders.Add(new Order());
