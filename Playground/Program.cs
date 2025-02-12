@@ -135,8 +135,34 @@ namespace Playground
         }
     }
 
+
+    // input s = "abcabcbb"
+
+    
+
     class Program
     {
+        private static int LengthOfTheLongestSubstring(string line)
+        {
+            int l = 0;
+            int maxLength = 0;
+
+            HashSet<int> substringChars = new HashSet<int>();
+
+            for(int r = 0; r < line.Length; r++)
+            {
+                while (substringChars.Contains(line[r]))
+                {
+                    line.Remove(line[l]);
+                    l += 1;
+                }
+                maxLength = Math.Max(maxLength, (r - l) + 1);
+                substringChars.Add(line[r]);
+            }
+
+            return maxLength;
+        }
+
         static void Main(string[] args)
         {
             // Signature of Methods
@@ -145,6 +171,11 @@ namespace Playground
             // Ref modifier
             // Out modifier
 
+            //
+         
+            Console.WriteLine(LengthOfTheLongestSubstring("abcabcbb"));
+
+            /*
             int[][] food = new int[][]
             {
                 new int[] { 1, 2},
@@ -174,7 +205,7 @@ namespace Playground
             cookie["name"] = "Mosh";
             Console.WriteLine(cookie["name"]);
 
-
+            */
 
         }
     }
